@@ -1,12 +1,9 @@
 package com.librarybackend.library.controller;
 
 import com.librarybackend.library.domain.Book;
-import com.librarybackend.library.domain.dto.bookDto.BookCreateDto;
 import com.librarybackend.library.domain.dto.bookDto.BookDto;
 import com.librarybackend.library.mapper.BookMapper;
-import com.librarybackend.library.mapper.CopyMapper;
 import com.librarybackend.library.service.BookService;
-import com.librarybackend.library.service.CopyService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
@@ -19,14 +16,15 @@ public class BookController {
     BookMapper bookMapper;
     BookService bookService;
 
+
     public BookController(BookMapper bookMapper,
                           BookService bookService) {
         this.bookMapper = bookMapper;
         this.bookService = bookService;
     }
 
-    @PostMapping
-    public BookDto create(@RequestBody BookCreateDto bookCreateDto) {
+    @PostMapping(consumes = "application/json")
+    public BookDto create(@RequestBody BookDto bookCreateDto) {
         bookService.checkIfComplete(bookCreateDto);
         Book book = bookService.extractBook(bookCreateDto);
 

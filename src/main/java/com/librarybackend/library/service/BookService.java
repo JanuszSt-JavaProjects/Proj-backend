@@ -2,7 +2,7 @@ package com.librarybackend.library.service;
 
 import com.librarybackend.library.domain.Book;
 import com.librarybackend.library.domain.Copy;
-import com.librarybackend.library.domain.dto.bookDto.BookCreateDto;
+import com.librarybackend.library.domain.dto.bookDto.BookDto;
 import com.librarybackend.library.exception.bookException.BookAlreadyExistsException;
 import com.librarybackend.library.exception.bookException.NoNeededFieldException;
 import com.librarybackend.library.exception.bookException.NoSuchBookException;
@@ -16,7 +16,6 @@ import java.util.stream.Stream;
 @Service
 public class BookService {
     BookRepository bookRepository;
-    CopyService copyService;
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -27,9 +26,7 @@ public class BookService {
             throw new BookAlreadyExistsException();
         }
 
-        Book bookToSave = bookRepository.save(book);
-
-        return bookToSave;
+        return bookRepository.save(book);
     }
 
     public void delete(long Id) {
@@ -56,7 +53,7 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book extractBook(BookCreateDto bookCreateDto) {
+    public Book extractBook(BookDto bookCreateDto) {
 
         Book book = new Book();
         book.setTitle(bookCreateDto.getTitle());
@@ -66,27 +63,21 @@ public class BookService {
         return book;
     }
 
-    public Copy extractCopy(BookCreateDto bookCreateDto) {
 
-        Copy copy = new Copy();
-        copy.setSignature(bookCreateDto.getSignature());
-        copy.setStatus(bookCreateDto.getStatus());
-
-        return copy;
-    }
 
     private boolean checkIfExists(Book book) {
         return bookRepository.existsByAuthorAndTitle(book.getAuthor(), book.getTitle());
     }
 
-    public void checkIfComplete(BookCreateDto bookCreateDto) {
+
+    public void checkIfComplete(BookDto bookCreateDto) {
+
+        System.out.println(bookCreateDto);
 
         boolean check = Stream.of(
                         bookCreateDto.getTitle(),
                         bookCreateDto.getAuthor(),
-                        bookCreateDto.getStatus(),
-                        bookCreateDto.getReleaseDate(),
-                        bookCreateDto.getSignature())
+                        bookCreateDto.getReleaseDate())
                 .allMatch(Objects::nonNull);
 
         if (!check) {
