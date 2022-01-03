@@ -6,6 +6,7 @@ import com.librarybackend.library.mapper.BookMapper;
 import com.librarybackend.library.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,5 +60,19 @@ public class BookController {
 
         bookService.getAll().forEach(book -> bookDtos.add(bookMapper.mapBookToBookDto(book)));
         return bookDtos;
+    }
+
+    @GetMapping("/byauthor")
+    public List<BookDto> getByAuthor(@RequestParam String name){
+
+        System.out.println(name);
+        List <Book> books =bookService.getByAuthor(name);
+        List <BookDto> bookDtos = new ArrayList<>();
+        books.forEach(x-> bookDtos.add(bookMapper.mapBookToBookDto(x)));
+
+        System.out.println(bookDtos);
+
+        return bookDtos;
+
     }
 }

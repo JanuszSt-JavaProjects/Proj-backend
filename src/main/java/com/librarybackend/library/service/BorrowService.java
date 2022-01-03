@@ -24,15 +24,18 @@ public class BorrowService {
     BookRepository bookRepository;
     CustomerRepository customerRepository;
     CopyRepository copyRepository;
+    CopyService copyService;
 
     public BorrowService(BorrowRepository borrowRepository,
                          BookRepository bookRepository,
                          CustomerRepository customerRepository,
-                         CopyRepository copyRepository) {
+                         CopyRepository copyRepository,
+                         CopyService copyService) {
         this.borrowRepository = borrowRepository;
         this.bookRepository = bookRepository;
         this.customerRepository = customerRepository;
         this.copyRepository = copyRepository;
+        this.copyService = copyService;
     }
 
 
@@ -42,7 +45,7 @@ public class BorrowService {
         Customer customer = customerRepository.findById(borrow.getCustomer().getId()).orElseThrow(NoSuchClientException::new);
 
         long bookId = book.getId();
-        Copy availableCopy = getFirstAvailableCopy(book);
+        Copy availableCopy = copyService.getFirstAvailableCopy(book.getId());
         availableCopy.setStatus(Status.IN_USE);
 
         Borrow newBorrow = new Borrow();
@@ -56,13 +59,7 @@ public class BorrowService {
         return borrowRepository.save(newBorrow);
     }
 
-    private Copy getFirstAvailableCopy(Book book) {
-        return Optional.ofNullable(
-                        copyRepository
-                                .findAllByBookAndStatus(book, Status.AVAILABLE)
-                                .pollFirst())
-                .orElseThrow(NoAvailableCopyException::new);
-    }
+
 
 
     public void remove(long id) {

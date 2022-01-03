@@ -71,5 +71,10 @@ public class CopyController {
         return copyService.setStatus(id, Status.DESTROYED);
     }
 
+@GetMapping("/find-by-bookId/{bookId}")
+    public int findFirstAvailableCopy(@PathVariable long bookId){
+    System.out.println("========> copy controller :    "+bookId);
+        return (int) copyService.getFirstAvailableCopy(bookId).getId();
 
+}
 }

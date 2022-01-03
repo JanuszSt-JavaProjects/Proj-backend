@@ -4,6 +4,7 @@ package com.librarybackend.library.service;
 import com.librarybackend.library.domain.Copy;
 import com.librarybackend.library.domain.Status;
 import com.librarybackend.library.domain.dto.copyDto.CopyStatusChangeDto;
+import com.librarybackend.library.exception.copyException.NoAvailableCopyException;
 import com.librarybackend.library.exception.copyException.NoSuchCopyException;
 import com.librarybackend.library.exception.copyException.UnmodifiableStateException;
 import com.librarybackend.library.repository.CopyRepository;
@@ -62,5 +63,14 @@ public class CopyService {
         copy.setStatus(status);
         copyRepository.save(copy);
         return new CopyStatusChangeDto(id, status);
+    }
+
+    public Copy getFirstAvailableCopy(long bookId) {
+        System.out.println(" forstAv - input:  " + bookId);
+        return Optional.ofNullable(
+                        copyRepository
+                                .findAllByBook_IdAndStatus(bookId, Status.AVAILABLE)
+                                .pollFirst())
+                .orElseThrow(NoAvailableCopyException::new);
     }
 }
