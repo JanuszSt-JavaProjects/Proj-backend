@@ -1,4 +1,4 @@
-package com.librarybackend.readingRoom.reservation.domain;
+package com.librarybackend.reservation.domain;
 
 
 import lombok.Getter;

@@ -1,6 +1,7 @@
 package com.librarybackend.library.mapper;
 
 import com.librarybackend.library.domain.Book;
+import com.librarybackend.library.domain.OrderedBook;
 import com.librarybackend.library.domain.dto.bookDto.BookDto;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.librarybackend.readingRoom.reservation.exception;
+package com.librarybackend.reservation.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

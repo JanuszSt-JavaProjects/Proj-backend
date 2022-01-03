@@ -1,7 +1,7 @@
-package com.librarybackend.readingRoom.reservation.repository;
+package com.librarybackend.reservation.repository;
 
 
-import com.librarybackend.readingRoom.reservation.domain.Reservation;
+import com.librarybackend.reservation.domain.Reservation;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,16 +1,18 @@
-package com.librarybackend.readingRoom.reservation.service;
+package com.librarybackend.reservation.service;
 
 
 import com.librarybackend.library.service.CustomerService;
-import com.librarybackend.readingRoom.reservation.domain.Reservation;
-import com.librarybackend.readingRoom.reservation.exception.NoRequiredInformation;
-import com.librarybackend.readingRoom.reservation.exception.NoSuchReservationException;
-import com.librarybackend.readingRoom.reservation.repository.ReservationRepository;
+import com.librarybackend.reservation.domain.Reservation;
+import com.librarybackend.reservation.exception.NoRequiredInformation;
+import com.librarybackend.reservation.exception.NoSuchReservationException;
+import com.librarybackend.reservation.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class ReservationService {
     ReservationRepository reservationRepo;

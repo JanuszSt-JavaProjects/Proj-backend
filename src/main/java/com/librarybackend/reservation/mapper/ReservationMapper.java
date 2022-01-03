@@ -1,8 +1,8 @@
-package com.librarybackend.readingRoom.reservation.mapper;
+package com.librarybackend.reservation.mapper;
 
 
-import com.librarybackend.readingRoom.reservation.domain.Reservation;
-import com.librarybackend.readingRoom.reservation.domain.dto.ReservationDto;
+import com.librarybackend.reservation.domain.Reservation;
+import com.librarybackend.reservation.domain.dto.ReservationDto;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,8 +12,9 @@ public class ReservationMapper {
 
         return ReservationDto.builder()
                 .id(reservation.getId())
-                .clientId(reservation.getClientId())
+                .clientId((int)reservation.getClientId())
                 .orderedBook(reservation.getOrderedBook())
+                .date(reservation.getDate())
                 .hour(reservation.getHour())
                 .reservationStatus(reservation.getReservationStatus())
                 .build();
@@ -25,6 +26,7 @@ public class ReservationMapper {
                 .Id(reservationDto.getId())
                 .clientId(reservationDto.getClientId())
                 .orderedBook(reservationDto.getOrderedBook())
+                .date(reservationDto.getDate())
                 .hour(reservationDto.getHour())
                 .reservationStatus(reservationDto.getReservationStatus())
                 .build();

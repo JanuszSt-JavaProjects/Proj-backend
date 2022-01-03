@@ -1,8 +1,8 @@
-package com.librarybackend.readingRoom.reservation.domain.dto;
+package com.librarybackend.reservation.domain.dto;
 
-import com.librarybackend.readingRoom.reservation.domain.OrderedBook;
-import com.librarybackend.readingRoom.reservation.domain.Hour;
-import com.librarybackend.readingRoom.reservation.domain.ReservationStatus;
+import com.librarybackend.reservation.domain.OrderedBook;
+import com.librarybackend.reservation.domain.Hour;
+import com.librarybackend.reservation.domain.ReservationStatus;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 public class ReservationDto {
     private long id;
-    private long clientId;
+    private int clientId;
     private OrderedBook orderedBook;
     private LocalDate date;
     private Set<Hour> hour;

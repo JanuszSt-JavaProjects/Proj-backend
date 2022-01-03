@@ -1,4 +1,4 @@
-package com.librarybackend.readingRoom.reservation.domain;
+package com.librarybackend.reservation.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,12 +22,12 @@ public class Reservation {
 
     private long clientId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
     private OrderedBook orderedBook;
 
     private LocalDate date;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<Hour> hour;
 
