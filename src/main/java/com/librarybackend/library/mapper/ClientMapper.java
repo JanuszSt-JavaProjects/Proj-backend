@@ -12,7 +12,7 @@ public class ClientMapper {
 
         Customer customer = new Customer();
 
-        customer.setId(customerDto.getClientId());
+        customer.setId(customerDto.getId());
         customer.setFirstname(customerDto.getFirstname());
         customer.setLastname(customerDto.getLastname());
         customer.setCreateAccountDate(customerDto.getCreateAccountDate());
@@ -24,7 +24,7 @@ public class ClientMapper {
 
         CustomerDto customerDto = new CustomerDto();
 
-        customerDto.setClientId(customer.getId());
+        customerDto.setId(customer.getId());
         customerDto.setFirstname(customer.getFirstname());
         customerDto.setLastname(customer.getLastname());
         customerDto.setCreateAccountDate(customer.getCreateAccountDate());

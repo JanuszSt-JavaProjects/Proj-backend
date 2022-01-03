@@ -48,6 +48,9 @@ public class CopyController {
     public Set<CopyDto> getAll() {
         Set<CopyDto> copyDtos = new HashSet<>();
         copyService.getAll().forEach(copy -> copyDtos.add(copyMapper.mapCopyToCopyDto(copy)));
+
+        System.out.println(copyDtos);
+
         return copyDtos;
     }
 

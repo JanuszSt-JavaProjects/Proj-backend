@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class CopyDto {
     private long id;
+    private long bookId;
     private String signature;
     private Status status;
 }

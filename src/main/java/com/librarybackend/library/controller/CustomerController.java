@@ -1,7 +1,5 @@
 package com.librarybackend.library.controller;
 
-
-
 import com.librarybackend.library.domain.Customer;
 import com.librarybackend.library.domain.dto.customerDto.CustomerDto;
 import com.librarybackend.library.mapper.ClientMapper;
@@ -54,6 +52,5 @@ public class CustomerController {
         Set<CustomerDto> customerDtos = new HashSet<>();
         customerService.getAll().forEach(client -> customerDtos.add(clientMapper.mapClientToClientDto(client)));
         return customerDtos;
-
     }
 }

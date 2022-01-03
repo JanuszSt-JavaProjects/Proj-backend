@@ -3,7 +3,6 @@ package com.librarybackend.library.controller;
 
 import com.librarybackend.library.domain.Borrow;
 import com.librarybackend.library.domain.dto.borrowDto.BorrowDto;
-import com.librarybackend.library.domain.dto.borrowDto.BorrowReturnDto;
 import com.librarybackend.library.mapper.BorrowMapper;
 import com.librarybackend.library.service.BorrowService;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +37,10 @@ public class BorrowController {
 
     @PutMapping
     public BorrowDto update(@RequestBody BorrowDto borrowDto) {
+        System.out.println(borrowDto);
+
         Borrow borrow = borrowMapper.mapBorrowDtoToBorrow(borrowDto);
+
         return borrowMapper.mapBorrowToBorrowDto(borrowService.update(borrow));
     }
 
@@ -55,8 +57,4 @@ public class BorrowController {
         return borrowMapper.mapBorrowToBorrowDto(borrowService.getOne(id));
     }
 
-    @PatchMapping("/{id}/returned")
-    public BorrowReturnDto returnBook(@PathVariable long id) {
-        return borrowService.returnBook(id);
-    }
 }

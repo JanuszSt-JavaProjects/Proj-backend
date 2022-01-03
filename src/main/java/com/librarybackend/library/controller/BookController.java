@@ -39,7 +39,7 @@ public class BookController {
 
     @PutMapping
     public BookDto update(@RequestBody BookDto bookDto) {
-        System.out.println(bookDto.getId());
+        System.out.println(bookDto.getId());                 ///////
         Book book = bookMapper.mapBookDtoToBook(bookDto);
         System.out.println(book.getId());
         book = bookService.update(book);

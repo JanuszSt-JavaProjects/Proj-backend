@@ -9,6 +9,8 @@ import com.librarybackend.library.exception.clientException.NoSuchClientExceptio
 import com.librarybackend.library.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class BorrowMapper {
 
@@ -21,11 +23,20 @@ public class BorrowMapper {
     public Borrow mapBorrowDtoToBorrow(BorrowDto borrowDto) {
 
         Borrow borrow = new Borrow();
-        Customer customer = customerRepository.findById(borrowDto.getClientId()).orElseThrow(NoSuchClientException::new);
 
-        borrow.setCustomer(customer);
+        borrow.setId(borrowDto.getId());
         borrow.setBookId(borrowDto.getBookId());
+        borrow.setCopyId(borrow.getCopyId());
+        borrow.setBorrowDate(borrowDto.getBorrowDate());
+        try {
+            borrow.setReturnDate(borrowDto.getReturnDate());
+        }catch (Exception e){
+            borrow.setReturnDate(null);
+        }
 
+
+
+        borrow.setCustomer(customerRepository.findById(borrowDto.getClientId()).orElseThrow(NoSuchClientException::new));
         return borrow;
     }
 
@@ -38,7 +49,7 @@ public class BorrowMapper {
         borrowDto.setBookId(borrow.getBookId());
         borrowDto.setCopyId(borrow.getCopyId());
         borrowDto.setBorrowDate(borrow.getBorrowDate());
-
+        borrowDto.setReturnDate(borrow.getReturnDate());
         return borrowDto;
     }
 }

@@ -1,7 +1,6 @@
 package com.librarybackend.library.service;
 
 import com.librarybackend.library.domain.*;
-import com.librarybackend.library.domain.dto.borrowDto.BorrowReturnDto;
 import com.librarybackend.library.exception.clientException.NoSuchClientException;
 import com.librarybackend.library.exception.copyException.NoAvailableCopyException;
 import com.librarybackend.library.exception.copyException.NoSuchCopyException;
@@ -71,7 +70,6 @@ public class BorrowService {
     }
 
     public Borrow update(Borrow borrow) {
-        System.out.println("******************* z servisu : \n"+borrow);
         borrowRepository.findById(borrow.getId()).orElseThrow(NoSuchBorrowException::new);
         return borrowRepository.save(borrow);
     }
@@ -84,19 +82,4 @@ public class BorrowService {
         return borrowRepository.findById(id).orElseThrow(NoSuchBorrowException::new);
     }
 
-    public BorrowReturnDto returnBook(long id) {
-        Borrow borrow = borrowRepository.findById(id).orElseThrow(NoSuchBorrowException::new);
-        Copy copy = copyRepository.findById(borrow.getCopyId()).orElseThrow(NoSuchCopyException::new);
-
-
-        if (copy.getStatus().equals(Status.AVAILABLE)) {
-            throw new NoSuchBorrowException();
-        }
-        copy.setStatus(Status.AVAILABLE);
-        borrow.setReturnDate(LocalDate.now());
-
-        copyRepository.save(copy);
-        borrowRepository.save(borrow);
-        return new BorrowReturnDto(id,Status.AVAILABLE);
-    }
 }
