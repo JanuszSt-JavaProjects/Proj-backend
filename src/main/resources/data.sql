@@ -22,9 +22,5 @@ insert into copy (id, signature, status, book_id) VALUES (7,'sig-001', 'AVAILABL
 insert into copy (id, signature, status, book_id) VALUES (9,'sig-001', 'AVAILABLE',6);
 insert into copy (id, signature, status, book_id) VALUES (10,'sig-001', 'AVAILABLE',7);
 insert into copy (id, signature, status, book_id) VALUES (11,'sig-001', 'IN_USE',7);
-/*
-insert into borrow (id, book_id, borrow_date, copy_id, return_date, customer_id) VALUES (1,1,'2021-01-01',1,'2021-01-02',1);
-insert into borrow (id, book_id, borrow_date, copy_id, return_date, customer_id) VALUES (2,1,'2021-01-01',2,null,2);
-insert into borrow (id, book_id, borrow_date, copy_id, return_date, customer_id) VALUES (3,2,'2022-02-02',1,'2022-05-12',3);
-*/
+
 update  hibernate_sequence SET next_val=100 where next_val=1

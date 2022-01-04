@@ -28,12 +28,11 @@ public class OrderNotification {
     public void saveEvents() {
         List<Event> eventsToSave = new ArrayList<>();
 
-        List<Reservation> reservations = reservationRepository.findAllByDate(LocalDate.now());
-        eventsToSave.addAll(scheduleMapper.mapToEvents(reservations));
+        Iterable<Reservation> reservations = reservationRepository.findAll();
 
 
 
         System.out.println(reservations);
-        System.out.println(eventsToSave);
+
     }
 }

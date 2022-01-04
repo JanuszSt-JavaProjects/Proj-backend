@@ -15,7 +15,6 @@ public class ReservationMapper {
                 .clientId((int)reservation.getClientId())
                 .orderedBook(reservation.getOrderedBook())
                 .date(reservation.getDate())
-                .hour(reservation.getHour())
                 .reservationStatus(reservation.getReservationStatus())
                 .build();
     }
@@ -27,7 +26,6 @@ public class ReservationMapper {
                 .clientId(reservationDto.getClientId())
                 .orderedBook(reservationDto.getOrderedBook())
                 .date(reservationDto.getDate())
-                .hour(reservationDto.getHour())
                 .reservationStatus(reservationDto.getReservationStatus())
                 .build();
     }
