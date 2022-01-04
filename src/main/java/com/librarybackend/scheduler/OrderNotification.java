@@ -1,27 +1,34 @@
 package com.librarybackend.scheduler;
 
 import com.librarybackend.reservation.service.ReservationService;
-import lombok.Value;
+import lombok.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-@Value
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@Service
 @Component
 public class OrderNotification {
 
-    ReservationService reservationService;
-    ScheduleMapper scheduleMapper;
-    EventRepository eventRepository;
+   private ReservationService reservationService;
+   private ScheduleMapper scheduleMapper;
+   private EventRepository eventRepository;
+
+   private List<Event> eventsToSave;
 
 
     @Scheduled(cron = "0 0 10 * * *")
     public void saveEvents() {
-        Event defaultEv = new Event(LocalDate.now().minusDays(1), 0, " ----------------- ", " -------------");
+        Event defaultEv = new Event(LocalDate.now().minusDays(1), 0, "No Author", "No Title");
 
-        List<Event> eventsToSave;
 
         eventsToSave = scheduleMapper.mapToEvents(
                 reservationService.getAllFromDay(LocalDate.now().minusDays(1)));
