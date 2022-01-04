@@ -8,12 +8,10 @@ import com.librarybackend.reservation.exception.NoSuchReservationException;
 import com.librarybackend.reservation.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Service
 public class ReservationService {
     ReservationRepository reservationRepo;
@@ -27,6 +25,7 @@ public class ReservationService {
 
     public Reservation save(Reservation reservation) {
         Optional.ofNullable(reservation).orElseThrow(NoRequiredInformation::new);
+        reservation.setCreationDate(LocalDate.now());
         return reservationRepo.save(reservation);
     }
 
@@ -55,5 +54,9 @@ public class ReservationService {
 
     public List<Reservation> getAllForDay(LocalDate date) {
         return reservationRepo.findAllByDate(date);
+    }
+
+    public List<Reservation> getAllFromDay(LocalDate date) {
+        return reservationRepo.findAllByCreationDate(date);
     }
 }

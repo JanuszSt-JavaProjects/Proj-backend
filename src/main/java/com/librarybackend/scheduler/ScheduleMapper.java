@@ -2,6 +2,7 @@ package com.librarybackend.scheduler;
 
 import com.librarybackend.reservation.domain.Reservation;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,15 @@ public class ScheduleMapper {
 
         List <Event> events = new ArrayList<>();
 
-        reservations.stream()
-                .forEach(x->events.add(new Event(x.getDate(),
-                        (int) x.getOrderedBook().getBookId(),
-                        x.getOrderedBook().getAuthor(),
-                        x.getOrderedBook().getTitle()))
-                );
+        for (Reservation re: reservations ){
+
+           Event event = new Event();
+           event.setOrderDate(re.getCreationDate());
+           event.setBookId(re.getOrderedBook().getBookId());
+           event.setAuthor(re.getOrderedBook().getAuthor());
+           event.setBookTitle(re.getOrderedBook().getTitle());
+           events.add(event);
+        }
 
         return events;
     }

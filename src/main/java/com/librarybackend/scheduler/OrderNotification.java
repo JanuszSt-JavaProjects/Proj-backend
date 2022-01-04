@@ -1,8 +1,8 @@
 package com.librarybackend.scheduler;
 
-import com.librarybackend.reservation.domain.Reservation;
-import com.librarybackend.reservation.repository.ReservationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.librarybackend.reservation.service.ReservationService;
+import lombok.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,27 +12,29 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Value
 @Component
-@RestController                     /////////////////////////
-@RequestMapping("/qqq")
 public class OrderNotification {
 
-    @Autowired
-    ReservationRepository reservationRepository;
-    @Autowired
+    ReservationService reservationService;
     ScheduleMapper scheduleMapper;
+    EventRepository eventRepository;
 
-    @GetMapping                          ///////////////////////
+
+    @GetMapping("qqq")
+
 
 //    @Scheduled(cron = "0 0 10 * * *")
     public void saveEvents() {
         List<Event> eventsToSave = new ArrayList<>();
 
-        Iterable<Reservation> reservations = reservationRepository.findAll();
 
+      eventsToSave =  scheduleMapper.mapToEvents(
+                reservationService.getAllFromDay(LocalDate.now()));
 
+      eventsToSave =  scheduleMapper.mapToEvents(
+                reservationService.getAllFromDay(LocalDate.now().minusDays(1)));
+      eventRepository.saveAll(eventsToSave);
 
-        System.out.println(reservations);
-
-    }
+            }
 }

@@ -20,6 +20,8 @@ public class Reservation {
     @GeneratedValue
     private long Id;
 
+    LocalDate creationDate;
+
     private long clientId;
 
     @OneToOne(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
