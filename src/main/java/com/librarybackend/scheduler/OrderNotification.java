@@ -24,7 +24,7 @@ public class OrderNotification {
         List<Event> eventsToSave;
 
         eventsToSave = scheduleMapper.mapToEvents(
-                reservationService.getAllFromDay(LocalDate.now().minusDays(5)));
+                reservationService.getAllFromDay(LocalDate.now().minusDays(1)));
 
         if (!eventsToSave.isEmpty()) {
             eventRepository.saveAll(eventsToSave);
