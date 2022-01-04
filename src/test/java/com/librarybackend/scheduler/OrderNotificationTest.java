@@ -46,6 +46,7 @@ class OrderNotificationTest {
         List<Event> eventsToSave = tested.getEventsToSave();
         Assertions.assertEquals(1, eventsToSave.size());
         Assertions.assertEquals("aaa", eventsToSave.get(0).getBookTitle());
+        Assertions.assertTrue(tested.toString().contains("aaa"));
 
     }
 }

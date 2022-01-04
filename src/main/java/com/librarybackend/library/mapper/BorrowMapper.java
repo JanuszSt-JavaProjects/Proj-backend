@@ -1,15 +1,11 @@
 package com.librarybackend.library.mapper;
 
 
-
 import com.librarybackend.library.domain.Borrow;
-import com.librarybackend.library.domain.Customer;
 import com.librarybackend.library.domain.dto.borrowDto.BorrowDto;
 import com.librarybackend.library.exception.clientException.NoSuchClientException;
 import com.librarybackend.library.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class BorrowMapper {
@@ -30,10 +26,9 @@ public class BorrowMapper {
         borrow.setBorrowDate(borrowDto.getBorrowDate());
         try {
             borrow.setReturnDate(borrowDto.getReturnDate());
-        }catch (Exception e){
+        } catch (Exception e) {
             borrow.setReturnDate(null);
         }
-
 
 
         borrow.setCustomer(customerRepository.findById(borrowDto.getClientId()).orElseThrow(NoSuchClientException::new));

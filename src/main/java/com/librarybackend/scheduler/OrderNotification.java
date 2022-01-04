@@ -1,13 +1,15 @@
 package com.librarybackend.scheduler;
 
 import com.librarybackend.reservation.service.ReservationService;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,11 +20,11 @@ import java.util.List;
 @Component
 public class OrderNotification {
 
-   private ReservationService reservationService;
-   private ScheduleMapper scheduleMapper;
-   private EventRepository eventRepository;
+    private ReservationService reservationService;
+    private ScheduleMapper scheduleMapper;
+    private EventRepository eventRepository;
 
-   private List<Event> eventsToSave;
+    private List<Event> eventsToSave;
 
 
     @Scheduled(cron = "0 0 10 * * *")
