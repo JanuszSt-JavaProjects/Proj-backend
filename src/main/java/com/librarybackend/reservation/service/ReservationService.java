@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -52,7 +53,7 @@ public class ReservationService {
         return reservationRepo.findAllByClientId(clientId);
     }
 
-    public Iterable<Reservation> getAllForDay(LocalDate date) {
+    public List<Reservation> getAllForDay(LocalDate date) {
         return reservationRepo.findAllByDate(date);
     }
 }

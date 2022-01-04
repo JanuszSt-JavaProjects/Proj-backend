@@ -6,11 +6,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 
     Iterable<Reservation> findAllByClientId(long clientId);
 
-    Iterable<Reservation> findAllByDate(LocalDate date);
+    List<Reservation> findAllByDate(LocalDate date);
 }

@@ -28,7 +28,7 @@ public class Reservation {
     private LocalDate date;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     private Set<Hour> hour;
 
     @Enumerated(EnumType.STRING)
