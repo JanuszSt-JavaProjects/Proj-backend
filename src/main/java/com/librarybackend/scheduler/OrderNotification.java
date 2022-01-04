@@ -4,12 +4,8 @@ import com.librarybackend.reservation.service.ReservationService;
 import lombok.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Value
@@ -21,20 +17,20 @@ public class OrderNotification {
     EventRepository eventRepository;
 
 
-    @GetMapping("qqq")
-
-
-//    @Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(cron = "0 0 10 * * *")
     public void saveEvents() {
-        List<Event> eventsToSave = new ArrayList<>();
+        Event defaultEv = new Event(LocalDate.now().minusDays(1), 0, " ----------------- ", " -------------");
 
+        List<Event> eventsToSave;
 
-      eventsToSave =  scheduleMapper.mapToEvents(
-                reservationService.getAllFromDay(LocalDate.now()));
+        eventsToSave = scheduleMapper.mapToEvents(
+                reservationService.getAllFromDay(LocalDate.now().minusDays(5)));
 
-      eventsToSave =  scheduleMapper.mapToEvents(
-                reservationService.getAllFromDay(LocalDate.now().minusDays(1)));
-      eventRepository.saveAll(eventsToSave);
+        if (!eventsToSave.isEmpty()) {
+            eventRepository.saveAll(eventsToSave);
+        } else {
 
-            }
+            eventRepository.save(defaultEv);
+        }
+    }
 }
